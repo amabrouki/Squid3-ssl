@@ -4,9 +4,12 @@
 
 FROM ubuntu
 
-RUN echo "deb-src http://archive.ubuntu.com/ubuntu saucy main" >> /etc/apt/sources.list
-RUN echo "deb-src http://archive.ubuntu.com/ubuntu/ saucy-updates main" >> /etc/apt/sources.list
-RUN echo "deb-src http://security.ubuntu.com/ubuntu saucy-security main" >> /etc/apt/sources.list
+RUN tempdir=$(mktemp -d)
+RUN cd "$tempdir"
+RUN source_file=/etc/apt/sources.list
+RUN new_file=sources.list.new
+RUN perl -pE 's/^#\s+(deb-src)/$1/' "$source_file" > "$new_file"
+RUN cp "$new_file" "$source_file"
 RUN apt-get update
 RUN apt-get -y upgrade
 
