@@ -1,38 +1,23 @@
-# Dockerfile for Squid3, with SSL enabled.
+# Dockerfile.build
+# Build debian packages for Squid3, with SSL enabled.
 # http://www.squid-cache.org/
 
-FROM ubuntu:16.04
+FROM ubuntu
+
 RUN apt-get update
 RUN apt-get -y upgrade
 
-# Install dependencies
-RUN apt-get -y install apache2 logrotate squid-langpack ca-certificates
-RUN apt-get -y install libgssapi-krb5-2 libltdl7 libcap2 libnetfilter-conntrack3
+# Install build dependencies
+RUN apt-get -y install libssl-dev
+RUN apt-get -y build-dep squid3
 
-# Install from locally generated .deb files
-ADD debs /root/
-RUN dpkg -i /root/*.deb
-RUN rm /root/*.deb
+# Download source
+RUN mkdir /src
+RUN cd /src && apt-get source squid3
 
-# Install configuration files
-ADD config/squid3-ssl.conf /etc/squid3/squid3-ssl.conf
-ADD config/openssl.cnf /etc/squid3/openssl.cnf
+# Edit debian/rules to build with SSL
+RUN sed -i 's/--enable-ecap/--enable-ecap --with-openssl --enable-ssl --enable-ssl-crtd/' /src/squid3-3.5.12/debian/rules
 
-# Add certs directory
-ADD certs /etc/squid3/certs
-
-# Initialize dynamic certs directory
-RUN /usr/lib/squid3/ssl_crtd -c -s /var/lib/ssl_db
-RUN chown -R proxy:proxy /var/lib/ssl_db
-
-# Create cache directory
-RUN mkdir /srv/squid3
-RUN chown proxy:proxy /srv/squid3
-RUN touch /srv/squid3/init_volume
-VOLUME /srv/squid3
-
-# Install run.sh and make-certs.sh
-ADD bin /usr/local/bin/
-RUN chmod 755 /usr/local/bin/run.sh /usr/local/bin/make-certs.sh
-
-EXPOSE 3128
+# Build debs
+RUN apt-get -y install devscripts
+RUN cd /src/squid3-3.5.12 && debuild -us -uc -b
