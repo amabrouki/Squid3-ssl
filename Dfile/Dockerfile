@@ -10,7 +10,7 @@ RUN apt-get -y install apache2 logrotate squid-langpack ca-certificates
 RUN apt-get -y install libgssapi-krb5-2 libltdl7 libcap2 libnetfilter-conntrack3
 
 # Install from locally generated .deb files
-ADD deb /root/
+ADD /etc/repo/deb /root/
 RUN dpkg -i /root/*.deb
 RUN rm /root/*.deb
 
