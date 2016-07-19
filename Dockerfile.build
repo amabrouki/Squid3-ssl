@@ -4,12 +4,12 @@
 
 FROM ubuntu
 
-RUN tempdir=$(mktemp -d)
-RUN cd "$tempdir"
-RUN source_file=/etc/apt/sources.list
-RUN new_file=sources.list.new
-RUN perl -pE 's/^#\s+(deb-src)/$1/' "$source_file" > "$new_file"
-RUN cp "$new_file" "$source_file"
+RUN deb-src http://archive.ubuntu.com/ubuntu/ xenial main restricted
+RUN deb-src http://archive.ubuntu.com/ubuntu/ xenial-updates main restricted
+RUN deb-src http://archive.ubuntu.com/ubuntu/ xenial universe
+RUN deb-src http://archive.ubuntu.com/ubuntu/ xenial-updates universe
+RUN deb-src http://archive.ubuntu.com/ubuntu/ xenial-security main restricted
+RUN deb-src http://archive.ubuntu.com/ubuntu/ xenial-security universe
 RUN apt-get update
 RUN apt-get -y upgrade
 
