@@ -16,6 +16,9 @@ Clone the git repo and cd into the root directory.
 
 <pre><code>$ git clone https://github.com/amabrouki/Squid3-ssl.git
 $ cd Squid3-ssl
+$ docker build -t squid Dfile
+$ docker run -v deb:/src/debs squid /bin/sh -c 'cp /src/*.deb /src/debs/'
+$ docker build -t squid3 /etc/repo
 </code></pre>
 
 # Running the Squid3 Proxy
