@@ -7,5 +7,6 @@ A Squid3 proxy (with SSL enabled) in a Docker container.
 
 Clone the git repo and cd into the root directory.
 
-$ git clone https://github.com/toffer/docker-squid3-ssl
+<pre><code>$ git clone https://github.com/toffer/docker-squid3-ssl
 $ cd docker-squid3-ssl
+</code></pre>
