@@ -7,7 +7,7 @@ A Squid3 proxy (with SSL enabled) in a Docker container.
 <ul>
 
 <li>Squid (Version 3).</li>
-<li>Ubuntu 16.04.</li><li>Built from source, with --enable-ecap --enable-ecap --with-openssl --enable-ssl --enable-ssl-crtd.</li>
+<li>Ubuntu 16.04.</li><li>Built from source, with --enable-ecap --with-openssl --enable-ssl --enable-ssl-crtd.</li>
 </ul>
 
 # Building the Squid3 Proxy Docker Image
