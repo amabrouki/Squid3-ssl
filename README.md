@@ -17,3 +17,4 @@ Clone the git repo and cd into the root directory.
 <pre><code>$ git clone https://github.com/amabrouki/Squid3-ssl.git
 $ cd Squid3-ssl
 </code></pre>
+
