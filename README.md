@@ -18,3 +18,5 @@ Clone the git repo and cd into the root directory.
 $ cd Squid3-ssl
 </code></pre>
 
+# Running the Squid3 Proxy
+
