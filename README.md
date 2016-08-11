@@ -22,7 +22,7 @@ $ docker build -t squid Dfile
 # 
 $ docker run -v deb:/src/debs squid /bin/sh -c 'cp /src/*.deb /src/debs/'
 # 
-$ docker build -t squid3 /etc/repo
+$ docker build -t squid3 .
 </code></pre>
 
 # Running the Squid3 Proxy
