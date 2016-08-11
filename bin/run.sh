@@ -11,6 +11,7 @@ chown -R proxy:proxy /var/log/squid/
 chmod 666 /etc/squid3/squidGuard.conf
 chmod -R 666 /var/lib/squidguard/db
 chmod -R 666 /var/log/squid/
+find /var/lib/squidguard/db -type d -exec chmod 755 \{\} \; -print
 chmod 755 /var/log/squid
 
 # Prep cache directory
