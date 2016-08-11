@@ -7,7 +7,7 @@ RUN apt-get -y upgrade
 
 # Install dependencies
 RUN apt-get -y install apache2 logrotate squid-langpack ca-certificates squid
-RUN apt-get -y install libgssapi-krb5-2 libltdl7 libecap3 libnetfilter-conntrack3
+RUN apt-get -y install libgssapi-krb5-2 libltdl7 libecap3 libnetfilter-conntrack3 nano wget
 
 # Install from locally generated .deb files
 ADD deb /root/
@@ -35,5 +35,15 @@ VOLUME /srv/squid3
 ADD bin /usr/local/bin/
 RUN chmod 755 /usr/local/bin/run.sh /usr/local/bin/make-certs.sh
 
+RUN apt-get -y install squidguard
+RUN wget http://dsi.ut-capitole.fr/blacklists/download/blacklists.tar.gz
+RUN tar -xzf blacklists.tar.gz
+RUN cp -R blacklists/* /var/lib/squidguard/db/
+ADD squidGuard.conf /etc/squidguard/
+RUN ln -s /etc/squidguard/squidGuard.conf /etc/squid3/
+RUN chown -R proxy:proxy  /var/log/squid /var/lib/squidguard
+RUN squidGuard -C all
+
+RUN wget http://dsi.ut-capitole.fr/blacklists/download/blacklists.tar.gz
 EXPOSE 3128
 CMD ["/bin/bash","/usr/local/bin/run.sh"]
