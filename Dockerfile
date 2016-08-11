@@ -45,5 +45,10 @@ RUN chown -R proxy:proxy  /var/log/squid /var/lib/squidguard
 RUN squidGuard -C all
 
 RUN wget http://dsi.ut-capitole.fr/blacklists/download/blacklists.tar.gz
+
+# Install sarg
+RUN RUN apt-get -y install sarg
+ADD sarg.conf /etc/sarg/
+
 EXPOSE 3128
 CMD ["/bin/bash","/usr/local/bin/run.sh"]
