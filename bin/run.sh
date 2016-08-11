@@ -14,6 +14,7 @@ chmod -R 666 /var/log/squid/
 find /var/lib/squidguard/db -type d -exec chmod 755 \{\} \; -print
 chmod 755 /var/log/squid
 
+service apache2 start
 # Prep cache directory
 /usr/sbin/squid3 -z -N -f /etc/squid3/squid3-ssl.conf
 # Run squid
