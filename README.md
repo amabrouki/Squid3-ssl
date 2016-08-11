@@ -1,4 +1,4 @@
-# Docker Squid3-ssl and SquidGuard
+# Docker : Squid3-ssl and SquidGuard
 
 A Squid3 proxy (with SSL enabled) in a Docker container.
 
