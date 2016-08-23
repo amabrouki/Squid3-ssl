@@ -52,5 +52,8 @@ ADD sarg.conf /etc/sarg/
 RUN ln -s /var/lib/sarg/ /var/www/html
 RUN (crontab -l 2>/dev/null; echo "00 01 * * * /usr/sbin/sarg-reports daily") | crontab -
 
+# Fichier pac
+ADD wpad.dat /var/www/html
+
 EXPOSE 3128
 CMD ["/bin/bash","/usr/local/bin/run.sh"]
