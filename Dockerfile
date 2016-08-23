@@ -47,10 +47,10 @@ RUN squidGuard -C all
 RUN wget http://dsi.ut-capitole.fr/blacklists/download/blacklists.tar.gz
 
 # Install sarg
-RUN apt-get -y install sarg
-ADD sarg.conf /etc/sarg/
-RUN ln -s /var/lib/sarg/ /var/www/html
-RUN (crontab -l 2>/dev/null; echo "00 01 * * * /usr/sbin/sarg-reports daily") | crontab -
+#RUN apt-get -y install sarg
+#ADD sarg.conf /etc/sarg/
+#RUN ln -s /var/lib/sarg/ /var/www/html
+#RUN (crontab -l 2>/dev/null; echo "00 01 * * * /usr/sbin/sarg-reports daily") | crontab -
 
 # Fichier pac
 ADD wpad.dat /var/www/html
