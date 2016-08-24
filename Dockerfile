@@ -5,12 +5,27 @@ FROM ubuntu:16.04
 RUN apt-get update
 RUN apt-get -y upgrade
 
+# Install build dependencies
+RUN apt-get -y install libssl-dev
+RUN apt-get -y build-dep squid3
+
+# Download source
+RUN mkdir /src
+RUN cd /src && apt-get source squid3
+
+# Edit debian/rules to build with SSL
+RUN sed -i 's/--enable-ecap/--enable-ecap --with-openssl --enable-ssl --enable-ssl-crtd/' /src/squid3-3.5.12/debian/rules
+
+# Build debs
+RUN apt-get -y install devscripts
+RUN cd /src/squid3-3.5.12 && debuild -us -uc -b
+
 # Install dependencies
 RUN apt-get -y install apache2 logrotate squid-langpack ca-certificates squid
 RUN apt-get -y install libgssapi-krb5-2 libltdl7 libecap3 libnetfilter-conntrack3 nano wget
 
 # Install from locally generated .deb files
-ADD deb /root/
+RUN cp /src/*.deb /root/
 RUN dpkg -i /root/*.deb
 RUN rm /root/*.deb
 
