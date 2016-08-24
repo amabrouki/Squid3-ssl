@@ -8,7 +8,7 @@ RUN apt-get update
 RUN apt-get -y upgrade
 
 # Install build dependencies
-RUN apt-get -y install libssl-dev
+RUN apt-get -y install libssl-dev apt-utils
 RUN apt-get -y build-dep squid3
 
 # Download source
