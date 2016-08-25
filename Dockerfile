@@ -68,7 +68,7 @@ RUN wget http://dsi.ut-capitole.fr/blacklists/download/blacklists.tar.gz
 #RUN (crontab -l 2>/dev/null; echo "00 01 * * * /usr/sbin/sarg-reports daily") | crontab -
 
 # Fichier pac
-ADD wpad.dat /var/www/html
+ADD wpad.dat /var/www/html/wpad.dat
 
 EXPOSE 3128
 CMD ["/bin/bash","/usr/local/bin/run.sh"]
